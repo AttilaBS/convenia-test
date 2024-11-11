@@ -20,7 +20,7 @@ final class LoginUserController extends ApiController
 
         if ($user) {
             if (Hash::check($validated['password'], $user->password)) {
-                $user->tokens()->delete();
+                $user->tokens()->latest()->first()?->revoke();
                 $token = $user->createToken('api_token')->accessToken;
 
                 return (

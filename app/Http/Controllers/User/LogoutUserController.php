@@ -14,7 +14,7 @@ final class LogoutUserController extends ApiController
             if (! $user->token()) {
                 return response()->json(__('User not logged in.'));
             }
-            $user->tokens()->delete();
+            $user->token()->revoke();
 
             return (new UserResource(['user' => $user]))->response();
         }

@@ -16,17 +16,16 @@ final class CreateUserController extends ApiController
      * @param CreateUserService $createUserService
      * @return JsonResponse
      *
-     * @throws BindingResolutionException
      * @throws Exception
      */
     public function __invoke(
         CreateUserRequest $request,
         CreateUserService $createUserService
     ): JsonResponse {
-        $user = $createUserService($request->validated());
+        [$user, $token] = $createUserService($request->validated());
 
         logger()->notice("O usuário de id {$user->id} foi criado!");
 
-        return (new UserResource(['user' => $user]))->response();
+        return (new UserResource(['user' => $user, 'token' => $token]))->response();
     }
 }
