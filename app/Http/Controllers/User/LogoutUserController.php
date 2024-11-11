@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\User;
 
+use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Hash;
 
-final class LogoutUserController extends ApiController
+final class LogoutUserController extends Controller
 {
     public function __invoke(): JsonResponse {
         $user = auth()->user();
