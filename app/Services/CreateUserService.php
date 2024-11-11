@@ -11,11 +11,14 @@ final class CreateUserService
     /**
      * @param array<string> $parameters
      *
-     * @return User
+     * @return array<object, string>
      */
-    public function __invoke(array $parameters): User
+    public function __invoke(array $parameters): array
     {
         $parameters['password'] = Hash::make($parameters['password']);
-        return User::create($parameters);
+        $user = User::create($parameters);
+        $token = $user->createToken('api_token')->accessToken;
+
+        return [$user, $token];
     }
 }
