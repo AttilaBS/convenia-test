@@ -37,9 +37,11 @@
       - php artisan queue:work --queue=list         (fila para processamento do arquivo csv)
       - php artisan queue:work --queue=employees    (fila para a inserção em massa no banco de dados dos colaboradores)
       - php artisan queue:work                      (fila para envio do email via notification facade)
-   8. para testar o envio de email, uma sugestão é o uso do serviço MailTrap (o envio é realizado após 1 minuto)
-      OBS.: No .env.example há sugestões de variáveis de ambiente para gmail e mailtrap, ambos testados e funcionais
-   9. para efetuar os testes automatizados, digitar no terminal:
+   8. Criar um usuário na rota api/user/register
+   9. Copiar o token gerado e passar nas demais requisições em Headers como: Authorization Bearer <token>
+   10. para testar o envio de email, uma sugestão é o uso do serviço MailTrap (o envio é realizado após 1 minuto).
+      No .env.example há sugestões de variáveis de ambiente para gmail e mailtrap.
+   11. para efetuar os testes automatizados, digitar no terminal:
       -- php artisan test
       -- php artisan test --coverage        (para testes informando a porcentagem de cobertura de código (necessário xdebug configurado no modo coverage))
    
@@ -47,3 +49,5 @@
     a) em um arquivo separado, será enviada a collection das rotas com os respectivos payloads
 
     b) para verificação de implementação de cache via redis/predis, verificar a rota api/employee/list
+
+    c) qualquer dúvida, sugestão ou feedback, estou à disposição
