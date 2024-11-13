@@ -22,7 +22,7 @@ final class EditEmployeeController extends Controller
         if (! $updatedEmployee) {
             return response()->json(
                 [
-                    'message' => 'The employee was not updated !',
+                    'message' => 'Ocorreu um erro e o cadastro do colaborador não foi atualizado.',
                 ],
                 400
             );

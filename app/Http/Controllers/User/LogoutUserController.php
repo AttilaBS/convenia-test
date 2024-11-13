@@ -12,13 +12,23 @@ final class LogoutUserController extends Controller
         $user = auth()->user();
         if ($user) {
             if (! $user->token()) {
-                return response()->json(__('User not logged in.'));
+                return response()->json(
+                    [
+                        'message' => 'Usuário não logado.'
+                    ],
+                    401
+                );
             }
             $user->token()->revoke();
 
             return (new UserResource(['user' => $user]))->response();
         }
 
-        return response()->json(__('User not found.'));
+        return response()->json(
+            [
+                'message' => 'Usuário não encontrado.'
+            ],
+            404
+        );
     }
 }

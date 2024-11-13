@@ -29,9 +29,15 @@ final class LoginUserController extends Controller
                 )->response();
             }
 
-            return response()->json('Incorrect credentials.', 401);
+            return response()->json(
+                ['message' => 'Credenciais incorretas.'],
+                401
+            );
         }
 
-        return response()->json('User not found.', 404);
+        return response()->json(
+            ['message' => 'Usuário não encontrado.'],
+            404
+        );
     }
 }

@@ -22,30 +22,11 @@ final class CreateEmployeesFromListController extends Controller
             );
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        // salvo a planilha no filesystem - local por enquanto
-        // disparo o job de processamento da planilha
-        // a função retorna a resposta de que a planilha foi uploadeada com sucesso -
-        // assim que tudo estiver salvo, ele receberá um email
-        // o job pode chamar um service - ou posso mandar para um EDD
-        // o service faz o processamento da planilha e salva no banco
-        // quando terminado, posso criar um evento, que chama um listener, que manda o email
-        // ver de enviar o email com o mailable do laravel - kyrios api tem isso
+        return response()->json(
+            [
+                'message' => 'Ocorreu um erro ao inserir a lista. Tente novamente mais tarde.',
+            ],
+            400
+        );
     }
 }
