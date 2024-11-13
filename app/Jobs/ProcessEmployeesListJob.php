@@ -2,10 +2,9 @@
 
 namespace App\Jobs;
 
-use App\Models\User;
-use App\Notifications\ListProcessed;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Storage;
@@ -21,8 +20,7 @@ final class ProcessEmployeesListJob implements ShouldQueue
         private readonly string $filePath,
         private readonly int $managerId,
         private readonly string $directory
-    ) {
-    }
+    ) {}
 
     public function handle(): void
     {
@@ -47,6 +45,7 @@ final class ProcessEmployeesListJob implements ShouldQueue
         while ($row = fgetcsv($fileStream)) {
             if ($skipHeader) {
                 $skipHeader = false;
+
                 continue;
             }
             $employees[] = [

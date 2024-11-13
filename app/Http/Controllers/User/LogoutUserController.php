@@ -8,13 +8,14 @@ use Illuminate\Http\JsonResponse;
 
 final class LogoutUserController extends Controller
 {
-    public function __invoke(): JsonResponse {
+    public function __invoke(): JsonResponse
+    {
         $user = auth()->user();
         if ($user) {
             if (! $user->token()) {
                 return response()->json(
                     [
-                        'message' => 'Usuário não logado.'
+                        'message' => 'Usuário não logado.',
                     ],
                     401
                 );
@@ -26,7 +27,7 @@ final class LogoutUserController extends Controller
 
         return response()->json(
             [
-                'message' => 'Usuário não encontrado.'
+                'message' => 'Usuário não encontrado.',
             ],
             404
         );

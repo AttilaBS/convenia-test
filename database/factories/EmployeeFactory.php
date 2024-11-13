@@ -6,8 +6,6 @@ use App\Models\User;
 use Faker\Provider\pt_BR\Address;
 use Faker\Provider\pt_BR\Person;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 
 /**
  * @extends Factory<User>
@@ -23,6 +21,7 @@ class EmployeeFactory extends Factory
     {
         $address = app(Address::class);
         $employee = app(Person::class);
+
         return [
             'name' => $employee->name(),
             'email' => fake()->unique()->safeEmail(),

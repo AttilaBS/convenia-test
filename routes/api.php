@@ -1,10 +1,10 @@
 <?php
 
 use App\Http\Controllers\Employee\CreateEmployeeController;
+use App\Http\Controllers\Employee\CreateEmployeesFromListController;
 use App\Http\Controllers\Employee\DeleteEmployeeController;
 use App\Http\Controllers\Employee\EditEmployeeController;
 use App\Http\Controllers\Employee\ListEmployeesController;
-use App\Http\Controllers\Employee\CreateEmployeesFromListController;
 use App\Http\Controllers\User\CreateUserController;
 use App\Http\Controllers\User\LoginUserController;
 use App\Http\Controllers\User\LogoutUserController;
@@ -13,8 +13,7 @@ use Illuminate\Support\Facades\Route;
 Route::post('register', CreateUserController::class);
 Route::post('login', LoginUserController::class);
 
-Route::middleware('auth:api')->group(function (): void
-{
+Route::middleware('auth:api')->group(function (): void {
     Route::get('logout', LogoutUserController::class);
 
     Route::name('employee.')->prefix('employee')
@@ -32,6 +31,5 @@ Route::middleware('auth:api')->group(function (): void
                     ->name('delete');
             }
         );
-        }
-    );
-
+}
+);

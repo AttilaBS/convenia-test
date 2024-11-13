@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Employee;
 use App\Http\Controllers\Controller;
 use App\Services\DeleteEmployeeService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Resources\Json\JsonResource;
 
 final class DeleteEmployeeController extends Controller
 {
@@ -18,7 +17,7 @@ final class DeleteEmployeeController extends Controller
         if ($deleted) {
             return response()->json(
                 [
-                    'message' => 'O colaborador de id: '. $uuid .'foi removido com sucesso.'
+                    'message' => 'O colaborador de id: '.$uuid.'foi removido com sucesso.',
                 ],
                 200
             );
@@ -26,7 +25,7 @@ final class DeleteEmployeeController extends Controller
 
         return response()->json(
             [
-                'message' => 'Ocorreu um erro ao remover o colaborador.'
+                'message' => 'Ocorreu um erro ao remover o colaborador.',
             ],
             500
         );

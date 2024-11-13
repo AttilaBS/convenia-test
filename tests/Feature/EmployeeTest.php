@@ -6,7 +6,6 @@ use App\Jobs\CreateEmployeesFromListJob;
 use App\Jobs\ProcessEmployeesListJob;
 use App\Models\Employee;
 use App\Models\User;
-use App\Notifications\ListProcessed;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Bus;
@@ -18,24 +17,25 @@ use Tests\TestCase;
 class EmployeeTest extends TestCase
 {
     use RefreshDatabase;
+
     protected function setUp(): void
     {
         parent::setUp();
 
         $manager = User::Factory()->create();
         $this->manager = $manager;
-        (new Passport())::actingAs($this->manager);
+        (new Passport)::actingAs($this->manager);
     }
 
     public function testCreateEmployee(): void
     {
-        (new Passport())::actingAs($this->manager);
+        (new Passport)::actingAs($this->manager);
         $payload = Employee::factory()->make()->toArray();
 
         $response = $this->postJson(route('employee.create', $payload));
 
         $response->assertCreated();
-        $parsedCpf = preg_replace('/[^0-9]/is', '',$payload['cpf']);
+        $parsedCpf = preg_replace('/[^0-9]/is', '', $payload['cpf']);
         $response->assertJsonFragment([
             'name' => $payload['name'],
             'email' => $payload['email'],
@@ -90,7 +90,7 @@ class EmployeeTest extends TestCase
             5
         );
 
-        (new Passport())::actingAs($manager);
+        (new Passport)::actingAs($manager);
 
         $response = $this->getJson(route('employee.list'));
 
@@ -112,15 +112,15 @@ class EmployeeTest extends TestCase
                         'deleted_at',
                         'created_at',
                         'updated_at',
-                    ]
-                ]
+                    ],
+                ],
             ]
         );
     }
 
     public function testUpdateEmployee(): void
     {
-        (new Passport())::actingAs($this->manager);
+        (new Passport)::actingAs($this->manager);
         $employee = Employee::factory()->create(
             ['manager_id' => $this->manager->id]
         );
@@ -153,7 +153,7 @@ class EmployeeTest extends TestCase
 
     public function testDeleteEmployee(): void
     {
-        (new Passport())::actingAs($this->manager);
+        (new Passport)::actingAs($this->manager);
         $employee = Employee::factory()->create(
             ['manager_id' => $this->manager->id]
         );
@@ -186,7 +186,7 @@ class EmployeeTest extends TestCase
         Notification::fake();
         Storage::fake('local');
 
-        (new Passport())::actingAs($this->manager);
+        (new Passport)::actingAs($this->manager);
 
         $csvData = $this->dataForFakeCSV();
         $csvFile = UploadedFile::fake()->createWithContent('test.csv', $csvData);
@@ -208,6 +208,7 @@ class EmployeeTest extends TestCase
         foreach ($fakeData as $data) {
             $csv .= "{$data->name},{$data->email},{$data->cpf},{$data->city},{$data->state}\n";
         }
+
         return $csv;
     }
 }

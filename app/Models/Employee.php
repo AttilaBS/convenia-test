@@ -12,7 +12,7 @@ use Illuminate\Support\Str;
 
 /**
  * Employee class.
-
+ *
  * @property string $id
  * @property string $cpf
  * @property string $city

@@ -6,7 +6,6 @@ use App\Rules\EmailPattern;
 use App\Rules\NamePattern;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
-use Illuminate\Validation\Rules\Password;
 
 final class EmployeeRequest extends FormRequest
 {

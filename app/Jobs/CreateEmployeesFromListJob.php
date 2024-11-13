@@ -21,9 +21,7 @@ class CreateEmployeesFromListJob implements ShouldQueue
      * @param array $employeesList
      * @return void
      */
-    public function __construct(private readonly array $employeesList)
-    {
-    }
+    public function __construct(private readonly array $employeesList) {}
 
     /**
      * @return void
@@ -36,7 +34,7 @@ class CreateEmployeesFromListJob implements ShouldQueue
             if ($hasInserted) {
                 logger()->notice('Employees were created successfully from list.');
                 $user = app(User::class)->find($chunk[0]['manager_id']);
-                $user->notify((new ListProcessed())->delay(now()->addMinute()));
+                $user->notify((new ListProcessed)->delay(now()->addMinute()));
             }
         }
     }
