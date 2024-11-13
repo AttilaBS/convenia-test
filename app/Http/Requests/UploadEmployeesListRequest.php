@@ -14,7 +14,7 @@ final class UploadEmployeesListRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'list' => 'required|mimes:csv',
+            'list' => 'required|file|mimes:csv',
         ];
     }
 }
