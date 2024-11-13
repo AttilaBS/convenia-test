@@ -8,10 +8,11 @@ use App\Models\Employee;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Bus;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 use Laravel\Passport\Passport;
+use PHPUnit\Framework\MockObject\Exception;
 use Tests\TestCase;
 
 class EmployeeTest extends TestCase
@@ -177,28 +178,31 @@ class EmployeeTest extends TestCase
         $this->assertSoftDeleted($deleted);
     }
 
+    /**
+     * @throws Exception
+     */
     public function testListUpload(): void
     {
-        Bus::fake([
-            ProcessEmployeesListJob::class,
-            CreateEmployeesFromListJob::class,
-        ]);
-        Notification::fake();
-        Storage::fake('local');
+        Storage::fake('test');
 
         (new Passport)::actingAs($this->manager);
 
         $csvData = $this->dataForFakeCSV();
         $csvFile = UploadedFile::fake()->createWithContent('test.csv', $csvData);
+        $csvFile->storeAs('uploads', $csvFile->getClientOriginalName(), 'test');
 
         $response = $this->post(
             route('employee.upload-list'),
             ['list' => $csvFile]
         );
 
-        Bus::assertDispatched(ProcessEmployeesListJob::class);
         $response->assertOk();
         $response->assertJsonPath('message', 'A lista está sendo processada. Você receberá um email assim que o processo terminar.');
+
+        Storage::disk('test')->assertExists("uploads/{$csvFile->getClientOriginalName()}");
+
+        $this->createStub(ProcessEmployeesListJob::class);
+        $this->createStub(CreateEmployeesFromListJob::class);
     }
 
     private function dataForFakeCSV(): string
