@@ -1,66 +1,45 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Convenia-API-teste
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Descrição do projeto:
+  Este repositório contém uma API que possui as seguintes funcionalidades: 
+ - CRUD de employee (Create, Read/Retrieve, Update e Delete),
+ - Criação, login e logout de usuário administrador (user),
+ - Upload de documento no formato CSV com listagem de colaboradores, para inserção assíncrona em massa no banco de dados,
+ - Envio de email informando inserção em massa com sucesso.
+ - Testes automatizados de integração validando as principais rotas.
 
-## About Laravel
+## Principais tecnologias/bibliotecas/linguagens utilizadas:
+  - Laravel v11.31
+  - PHP v8.3
+  - MySQL v8.0.40
+  - PHPUnit v11.4.3
+  - Passport v12.3.1
+  - SQLite v3
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Como executar o projeto:
+  Passo-a-passo:
+   1. git clone git@github.com:AttilaBS/convenia-test.git
+   2. na pasta raiz do repositório, digitar, em sequência:
+      - composer install
+      - php artisan migrate
+   3. criar passport api token, digitar:
+      - php artisan passport:client --password
+   4. adicionar no .env, nas variáveis de ambiente:
+      - PASSPORT_PERSONAL_ACCESS_CLIENT_ID
+      - PASSPORT_PERSONAL_ACCESS_CLIENT_SECRET
+      - os valores recebidos no comando do passo 3
+   5. verificar se na tabela oauth_clients a coluna providers está com o valor users e se personal_access_client como 1. Alterar se necessário
+   6. digitar:
+      - php artisan serve
+   7. iniciar as filas. Digitar em terminais separados:
+      - php artisan queue:work --queue=list         (fila para processamento do arquivo csv)
+      - php artisan queue:work --queue=employees    (fila para a inserção em massa no banco de dados dos colaboradores)
+      - php artisan queue:work                      (fila para envio do email via notification facade)
+   8. para testar o envio de email, uma sugestão é o uso do serviço MailTrap (o envio é realizado após 1 minuto)
+      OBS.: No .env.example há sugestões de variáveis de ambiente para gmail e mailtrap, ambos testados e funcionais
+   9. para efetuar os testes automatizados, digitar no terminal:
+      -- php artisan test
+      -- php artisan test --coverage     -> para testes informando a porcentagem de cobertura de código (necessário xdebug configurado)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
-
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+    OBS.: em um arquivo separado, será enviada a collection das rotas com respectivo payload

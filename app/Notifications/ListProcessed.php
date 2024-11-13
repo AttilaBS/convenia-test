@@ -33,7 +33,8 @@ class ListProcessed extends Notification implements ShouldQueue
     {
         return (new MailMessage)
             ->from(config('mail.from.address'))
-            ->subject('Processamento realizado com sucesso');
+            ->subject('Processamento realizado com sucesso')
+            ->markdown('mail.list-processed');
     }
 
     /**
