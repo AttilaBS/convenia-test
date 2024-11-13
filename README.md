@@ -15,7 +15,7 @@
   - PHPUnit v11.4.3
   - Passport v12.3.1
   - SQLite v3
-
+  - Predis v2.2.2
 
 ## Como executar o projeto:
   Passo-a-passo:
@@ -29,7 +29,8 @@
       - PASSPORT_PERSONAL_ACCESS_CLIENT_ID
       - PASSPORT_PERSONAL_ACCESS_CLIENT_SECRET
       - os valores recebidos no comando do passo 3
-   5. verificar se na tabela oauth_clients a coluna providers está com o valor users e se personal_access_client como 1. Alterar se necessário
+   5. verificar se na tabela oauth_clients a coluna providers está com o valor users e se personal_access_client como 1.
+    Alterar se necessário.
    6. digitar:
       - php artisan serve
    7. iniciar as filas. Digitar em terminais separados:
@@ -40,6 +41,9 @@
       OBS.: No .env.example há sugestões de variáveis de ambiente para gmail e mailtrap, ambos testados e funcionais
    9. para efetuar os testes automatizados, digitar no terminal:
       -- php artisan test
-      -- php artisan test --coverage     -> para testes informando a porcentagem de cobertura de código (necessário xdebug configurado)
+      -- php artisan test --coverage        (para testes informando a porcentagem de cobertura de código (necessário xdebug configurado no modo coverage))
+   
+## Observações finais:
+    a) em um arquivo separado, será enviada a collection das rotas com os respectivos payloads
 
-    OBS.: em um arquivo separado, será enviada a collection das rotas com respectivo payload
+    b) para verificação de implementação de cache via redis/predis, verificar a rota api/employee/list
