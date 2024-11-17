@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Http\Resources\GenericResource;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
@@ -46,12 +47,7 @@ class AppServiceProvider extends ServiceProvider
                         'ip: ' => $request->ip(),
                     ]);
 
-                    return response()->json(
-                        [
-                            'message' => 'O número máximo de tentativas foi excedido. Favor tentar novamente em alguns minutos',
-                            'status' => 429,
-                        ],
-                    );
+                    return (new GenericResource(__('throttle.user')))->response();
                 }
             );
         });

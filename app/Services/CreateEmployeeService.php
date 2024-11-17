@@ -8,9 +8,9 @@ class CreateEmployeeService
 {
     /**
      * @param array $employeeData
-     * @return Employee
+     * @return Employee|null
      */
-    public function __invoke(array $employeeData): Employee
+    public function __invoke(array $employeeData): Employee|null
     {
         $managerId = auth()->user()->id;
 

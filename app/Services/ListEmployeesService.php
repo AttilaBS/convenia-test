@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Cache;
 
 class ListEmployeesService
 {
-    public function __invoke(): Collection
+    public function __invoke(): Collection|null
     {
         return Cache::remember('employees-listing', 60, function () {
             return app(Employee::class)

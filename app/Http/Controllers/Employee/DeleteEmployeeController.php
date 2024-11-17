@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Employee;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\GenericResource;
 use App\Services\DeleteEmployeeService;
 use Illuminate\Http\JsonResponse;
 
@@ -13,21 +14,10 @@ final class DeleteEmployeeController extends Controller
         DeleteEmployeeService $deleteEmployeeService
     ): JsonResponse {
         $deleted = $deleteEmployeeService($uuid);
+        $return = $deleted
+            ? __('api.model.deleted', ['uuid' => $uuid])
+            : __('api.model.not_deleted', ['uuid' => $uuid]);
 
-        if ($deleted) {
-            return response()->json(
-                [
-                    'message' => 'O colaborador de id: '.$uuid.'foi removido com sucesso.',
-                ],
-                200
-            );
-        }
-
-        return response()->json(
-            [
-                'message' => 'Ocorreu um erro ao remover o colaborador.',
-            ],
-            500
-        );
+        return (new GenericResource($return))->response();
     }
 }

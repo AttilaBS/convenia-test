@@ -4,29 +4,21 @@ namespace App\Http\Controllers\Employee;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UploadEmployeesListRequest;
+use App\Http\Resources\GenericResource;
 use App\Services\ProcessEmployeesListService;
+use Illuminate\Http\JsonResponse;
 
 final class CreateEmployeesFromListController extends Controller
 {
     public function __invoke(
         UploadEmployeesListRequest $request,
         ProcessEmployeesListService $processEmployeesListService
-    ) {
+    ): JsonResponse {
         $isTrue = $processEmployeesListService($request->validated('list'));
-        if ($isTrue) {
-            return response()->json(
-                [
-                    'message' => 'A lista está sendo processada. Você receberá um email assim que o processo terminar.',
-                ],
-                200
-            );
-        }
+        $return = $isTrue
+            ? __('api.employee.upload.list.processing')
+            : __('api.employee.upload.list.error');
 
-        return response()->json(
-            [
-                'message' => 'Ocorreu um erro ao inserir a lista. Tente novamente mais tarde.',
-            ],
-            400
-        );
+        return (new GenericResource($return))->response();
     }
 }
