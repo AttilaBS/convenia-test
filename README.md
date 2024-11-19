@@ -39,7 +39,7 @@
       - php artisan queue:work                      (fila para envio do email via notification facade)
    8. Criar um usuário na rota api/user/register
    9. Copiar o token gerado e passar nas demais requisições em Headers como: Authorization Bearer <token>
-   10. para testar o envio de email, uma sugestão é o uso do serviço MailTrap (o envio é realizado após 1 minuto).
+   10. para testar o envio de e-mail, uma sugestão é o uso do serviço MailTrap (o envio é realizado após 1 minuto).
       No .env.example há sugestões de variáveis de ambiente para gmail e mailtrap.
    11. para efetuar os testes automatizados, digitar no terminal:
       -- php artisan test

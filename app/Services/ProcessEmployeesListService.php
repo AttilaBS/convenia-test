@@ -39,6 +39,7 @@ class ProcessEmployeesListService
             $directory = 'employees-'.now()->format('Y-m-d-m-Y-H-i-s');
             $filePath = Storage::disk('local')->put($directory, $list);
         } catch (UnableToWriteFile|Exception $exception) {
+            /** @noinspection NullPointerExceptionInspection */
             logger()->error(
                 'An error occurred while uploading the list: ',
                 ['exception' => $exception->getMessage()]

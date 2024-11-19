@@ -4,7 +4,6 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\GenericResource;
-use App\Http\Resources\UserResource;
 use App\Services\LogoutUserService;
 use Illuminate\Http\JsonResponse;
 

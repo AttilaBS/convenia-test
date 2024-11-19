@@ -25,6 +25,7 @@ class CreateEmployeesFromListJob implements ShouldQueue
 
     /**
      * @return void
+     * @noinspection NullPointerExceptionInspection
      */
     public function handle(): void
     {

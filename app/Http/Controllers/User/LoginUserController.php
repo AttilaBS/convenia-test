@@ -6,10 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
 use App\Http\Resources\GenericResource;
 use App\Http\Resources\UserResource;
-use App\Models\User;
 use App\Services\LoginUserService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Hash;
 
 final class LoginUserController extends Controller
 {

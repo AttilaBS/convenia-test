@@ -45,7 +45,7 @@ final class EmployeeRequest extends FormRequest
         $this->merge(
             [
                 'cpf' => preg_replace(
-                    '/[^0-9]/is',
+                    '/\D/',
                     '',
                     $this->input('cpf')
                 ),

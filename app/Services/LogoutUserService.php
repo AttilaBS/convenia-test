@@ -2,9 +2,6 @@
 
 namespace App\Services;
 
-use App\Models\User;
-use Illuminate\Support\Facades\Hash;
-
 final class LogoutUserService
 {
     /**
@@ -14,6 +11,7 @@ final class LogoutUserService
     {
         $user = auth()->user();
         if ($user) {
+            /** @noinspection NullPointerExceptionInspection */
             $user->token()->revoke();
 
             return true;

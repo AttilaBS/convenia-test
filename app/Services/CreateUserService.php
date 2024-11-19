@@ -15,7 +15,7 @@ final class CreateUserService
     public function __invoke(array $parameters): array
     {
         $parameters['password'] = Hash::make($parameters['password']);
-        $user = User::create($parameters);
+        $user = app(User::class)->create($parameters);
         $token = $user->createToken('api_token')->accessToken;
 
         return [$user, $token];

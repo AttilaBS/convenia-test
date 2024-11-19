@@ -25,13 +25,15 @@ final class CreateUserController extends Controller
     ): JsonResponse {
         [$user, $token] = $createUserService($request->validated());
         if (! $user) {
+            /** @noinspection NullPointerExceptionInspection */
             logger()->error(
                 'Ocorreu um erro e não foi possível criar o usuário',
                 ['email' => $request->validated('email')]
             );
             return (new GenericResource(__('api.model.not_created')))->response();
         }
-        logger()->notice("O usuário de id {$user->id} foi criado!");
+        /** @noinspection NullPointerExceptionInspection */
+        logger()->notice("O usuário de id $user->id foi criado!");
 
         return (new UserResource(['user' => $user, 'token' => $token]))->response();
     }

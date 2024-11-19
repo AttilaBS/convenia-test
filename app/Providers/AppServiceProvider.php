@@ -42,6 +42,9 @@ class AppServiceProvider extends ServiceProvider
         RateLimiter::for('user', function (Request $request) {
             return Limit::perMinutes(2, 3)->by($request->ip())->response(
                 function (Request $request) {
+                    /** @noinspection NullPointerExceptionInspection */
+                    /** @noinspection NullPointerExceptionInspection */
+                    /** @noinspection NullPointerExceptionInspection */
                     logger()->info('Foi excedido o número máximo de tentativas pelo usuário:', [
                         'email: ' => $request->input('email'),
                         'ip: ' => $request->ip(),

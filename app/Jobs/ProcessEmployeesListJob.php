@@ -30,6 +30,7 @@ class ProcessEmployeesListJob implements ShouldQueue
 
             Storage::disk('local')->deleteDirectory($this->directory);
         } else {
+            /** @noinspection NullPointerExceptionInspection */
             logger()->error("Folder with name $this->filePath not found !");
         }
     }

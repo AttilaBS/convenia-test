@@ -8,8 +8,6 @@ use App\Models\Employee;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 use Laravel\Passport\Passport;
 use PHPUnit\Framework\MockObject\Exception;
@@ -36,7 +34,7 @@ class EmployeeTest extends TestCase
         $response = $this->postJson(route('employee.create', $payload));
 
         $response->assertCreated();
-        $parsedCpf = preg_replace('/[^0-9]/is', '', $payload['cpf']);
+        $parsedCpf = preg_replace('/\D/', '', $payload['cpf']);
         $response->assertJsonFragment([
             'name' => $payload['name'],
             'email' => $payload['email'],
@@ -210,7 +208,7 @@ class EmployeeTest extends TestCase
         $fakeData = Employee::factory(500)->make();
         $csv = "name,email,cpf,city,state\n";
         foreach ($fakeData as $data) {
-            $csv .= "{$data->name},{$data->email},{$data->cpf},{$data->city},{$data->state}\n";
+            $csv .= "$data->name,$data->email,$data->cpf,$data->city,$data->state\n";
         }
 
         return $csv;

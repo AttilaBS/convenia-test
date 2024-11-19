@@ -26,8 +26,8 @@ class EmployeeFactory extends Factory
             'name' => $employee->name(),
             'email' => fake()->unique()->safeEmail(),
             'cpf' => $employee->cpf(),
-            'city' => $address->cityPrefix().' '.$address->citySuffix(),
-            'state' => $address->state(),
+            'city' => $address::cityPrefix().' '.$address::citySuffix(),
+            'state' => $address::state(),
             'manager_id' => User::query()->firstOr(
                 fn () => User::factory()->create()
             ),

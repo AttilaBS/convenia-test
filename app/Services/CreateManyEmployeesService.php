@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Employee;
+use Exception;
 
 class CreateManyEmployeesService
 {
@@ -14,7 +15,8 @@ class CreateManyEmployeesService
     {
         try {
             return app(Employee::class)->insert($employeeData);
-        } catch (\Exception $error) {
+        } catch (Exception $error) {
+            /** @noinspection NullPointerExceptionInspection */
             logger()->error(
                 'An Error happened when creating employees from list',
                 [
