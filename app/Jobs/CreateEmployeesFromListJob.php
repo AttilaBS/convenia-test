@@ -29,14 +29,23 @@ class CreateEmployeesFromListJob implements ShouldQueue
      */
     public function handle(): void
     {
+        $message = __('api.employee.upload.list.success');
         $chunks = array_chunk($this->employeesList, 250);
+        $user = app(User::class)->find($chunks[0][0]['manager_id']);
+        $hasInserted = false;
+        $chunkNumber = 1;
         foreach ($chunks as $chunk) {
             $hasInserted = app(CreateManyEmployeesService::class)($chunk);
             if ($hasInserted) {
-                logger()->notice('Employees were created successfully from list.');
-                $user = app(User::class)->find($chunk[0]['manager_id']);
-                $user->notify((new ListProcessed)->delay(now()->addMinute()));
+                logger()->notice("The chunk: $chunkNumber was processed.");
+                $chunkNumber++;
+            } else {
+                $message = __('api.employee.upload.list.failure',
+                    ['attribute' => $chunkNumber]
+                );
+                break;
             }
         }
+        $user->notify(new ListProcessed($message));
     }
 }

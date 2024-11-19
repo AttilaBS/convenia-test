@@ -19,11 +19,7 @@ class CreateManyEmployeesService
             /** @noinspection NullPointerExceptionInspection */
             logger()->error(
                 'An Error happened when creating employees from list',
-                [
-                    'email' => $employeeData[0]['email'],
-                    'cpf' => $employeeData[0]['cpf'],
-                    'error' => $error->getMessage(),
-                ]
+                ['error' => $error->getMessage()]
             );
         }
 

@@ -1,5 +1,6 @@
 <x-mail::message>
-    Processamento realizado com sucesso.
+    Prezada(o): {{ $notifiable->name }} <br>
+    Mensagem: {{ $message }}
 
     Att.
     {{ config('app.name') }}

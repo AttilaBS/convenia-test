@@ -14,7 +14,7 @@ class ListProcessed extends Notification implements ShouldQueue
     /**
      * Create a new notification instance.
      */
-    public function __construct() {}
+    public function __construct(private readonly string $message) {}
 
     /**
      * Get the notification's delivery channels.
@@ -31,10 +31,16 @@ class ListProcessed extends Notification implements ShouldQueue
      */
     public function toMail(object $notifiable): MailMessage
     {
+
         return (new MailMessage)
             ->from(config('mail.from.address'))
-            ->subject('Processamento realizado com sucesso')
-            ->markdown('mail.list-processed');
+            ->subject($this->message)
+            ->markdown('mail.list-processed',
+                [
+                    'message' => $this->message,
+                    'notifiable' => $notifiable,
+                ]
+            );
     }
 
     /**
