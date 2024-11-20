@@ -2,16 +2,13 @@
 
 namespace App\Services;
 
+use App\Models\User;
+
 final class LogoutUserService
 {
-    /**
-     * @return bool
-     */
-    public function __invoke(): bool
+    public function __invoke(User $user): bool
     {
-        $user = auth()->user();
         if ($user) {
-            /** @noinspection NullPointerExceptionInspection */
             $user->token()->revoke();
 
             return true;

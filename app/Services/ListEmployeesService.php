@@ -10,10 +10,14 @@ class ListEmployeesService
 {
     public function __invoke(): Collection|null
     {
-        return Cache::remember('employees-listing', 60, function () {
-            return app(Employee::class)
-                ->where('manager_id', auth()->user()->id)
-                ->get();
+        $userId = auth()->user()->id;
+        return Cache::remember(
+            "employees-listing-$userId",
+            60,
+            function () use ($userId) {
+                return app(Employee::class)
+                    ->where('manager_id', $userId)
+                    ->get();
         });
     }
 }
