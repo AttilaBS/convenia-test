@@ -13,7 +13,7 @@ class ProcessEmployeesListService
     public function __invoke(UploadedFile $list): bool
     {
         [$stored, $directory] = $this->storeList($list);
-        if ($stored !== false) {
+        if ($stored) {
             $managerId = auth()->user()->id;
             dispatch(
                 new ProcessEmployeesListJob(

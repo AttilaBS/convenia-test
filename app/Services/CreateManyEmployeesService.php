@@ -18,7 +18,7 @@ class CreateManyEmployeesService
         } catch (Exception $error) {
             /** @noinspection NullPointerExceptionInspection */
             logger()->error(
-                'An Error happened when creating employees from list',
+                'Ocorreu um erro ao criar os colaboradores da lista',
                 ['error' => $error->getMessage()]
             );
         }

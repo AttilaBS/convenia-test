@@ -84,6 +84,7 @@ return [
                 ],
                 'success' => 'Processamento realizado com sucesso',
                 'failure' => 'Ocorreu um erro ao processar a lista no bloco nº :attribute',
+                'validation_error' => 'Ocorreu um erro ao importar os dados da lista CSV: :error',
             ],
         ],
     ],

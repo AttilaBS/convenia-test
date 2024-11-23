@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -31,12 +32,12 @@ class ProcessEmployeesListJob implements ShouldQueue
             Storage::disk('local')->deleteDirectory($this->directory);
         } else {
             /** @noinspection NullPointerExceptionInspection */
-            logger()->error("Folder with name $this->filePath not found !");
+            logger()->error("O diretório de nome $this->filePath não foi encontrado!");
         }
     }
 
     /**
-     * @return array<string, string>
+     * @return array{<array{string, string|string|string|string|string|string|int|Carbon|Carbon>}
      */
     private function iterateThruList(): array
     {

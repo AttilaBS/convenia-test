@@ -5,6 +5,7 @@ namespace App\Jobs;
 use App\Models\User;
 use App\Notifications\ListProcessed;
 use App\Services\CreateManyEmployeesService;
+use App\Services\ValidateListValues;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -18,7 +19,6 @@ class CreateEmployeesFromListJob implements ShouldQueue
     public int $timeout = 1200;
 
     /**
-     * @param array $employeesList
      * @return void
      */
     public function __construct(private readonly array $employeesList) {}
@@ -30,14 +30,24 @@ class CreateEmployeesFromListJob implements ShouldQueue
     public function handle(): void
     {
         $message = __('api.employee.upload.list.success');
-        $chunks = array_chunk($this->employeesList, 250);
+        $chunks = array_chunk($this->employeesList, 50);
         $user = app(User::class)->find($chunks[0][0]['manager_id']);
         $hasInserted = false;
+        $hasValidated = false;
         $chunkNumber = 1;
         foreach ($chunks as $chunk) {
-            $hasInserted = app(CreateManyEmployeesService::class)($chunk);
+            $hasValidated = app(ValidateListValues::class)($chunk);
+            if ($hasValidated === true) {
+                $hasInserted = app(CreateManyEmployeesService::class)($chunk);
+            } else {
+                $message = __(
+                    'api.employee.upload.list.validation_error',
+                    ['error' => $hasValidated]
+                );
+                break;
+            }
             if ($hasInserted) {
-                logger()->notice("The chunk: $chunkNumber was processed.");
+                logger()->notice("O bloco nº $chunkNumber foi inserido.");
                 $chunkNumber++;
             } else {
                 $message = __('api.employee.upload.list.failure',
