@@ -36,7 +36,7 @@ class ProcessEmployeesListService
     private function storeList(UploadedFile $list): false|array
     {
         try {
-            $directory = 'employees-'.now()->format('Y-m-d-m-Y-H-i-s');
+            $directory = 'employees-'.now()->format('Y-m-d-H-i-s');
             $filePath = Storage::disk('local')->put($directory, $list);
         } catch (UnableToWriteFile|Exception $exception) {
             /** @noinspection NullPointerExceptionInspection */
