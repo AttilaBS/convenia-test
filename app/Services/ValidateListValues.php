@@ -19,7 +19,12 @@ class ValidateListValues
                     'cpf' => 'required|string|size:11',
                     'city' => 'required|string|between:3,120',
                     'state' => 'required|string|between:3,120',
-                    'name' => ['required', 'string', 'between:3,120', new NamePattern],
+                    'name' => [
+                        'required',
+                        'string',
+                        'between:3,120',
+                        new NamePattern
+                    ],
                     'email' => [
                         'required',
                         'string',
