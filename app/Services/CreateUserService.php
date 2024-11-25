@@ -8,8 +8,7 @@ use Illuminate\Support\Facades\Hash;
 final class CreateUserService
 {
     /**
-     * @param array<string> $parameters
-     *
+     * @param  array<string>  $parameters
      * @return array<object, string>
      */
     public function __invoke(array $parameters): array

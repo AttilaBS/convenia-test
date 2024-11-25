@@ -6,11 +6,6 @@ use App\Models\Employee;
 
 class EditEmployeeService
 {
-    /**
-     * @param array $employeeData
-     * @param string $uuid
-     * @return int|Employee
-     */
     public function __invoke(array $employeeData, string $uuid): int|Employee
     {
         $updated = app(Employee::class)

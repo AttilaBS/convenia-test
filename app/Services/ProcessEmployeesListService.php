@@ -30,7 +30,6 @@ class ProcessEmployeesListService
     }
 
     /**
-     * @param UploadedFile $list
      * @return bool|array<bool, string>
      */
     private function storeList(UploadedFile $list): false|array

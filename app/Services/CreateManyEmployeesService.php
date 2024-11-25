@@ -7,10 +7,6 @@ use Exception;
 
 class CreateManyEmployeesService
 {
-    /**
-     * @param array $employeeData
-     * @return bool
-     */
     public function __invoke(array $employeeData): bool
     {
         try {

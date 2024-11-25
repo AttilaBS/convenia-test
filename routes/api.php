@@ -11,16 +11,16 @@ use App\Http\Controllers\User\LogoutUserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/status', function (): string {
-        return 'ok';
-    }
-    );
+    return 'ok';
+}
+);
 
 Route::middleware('throttle:user')->name('user.')->prefix('user')
     ->group(
         function (): void {
             Route::post('register', CreateUserController::class);
             Route::post('login', LoginUserController::class);
-            Route::middleware('auth:api')->group(function(): void {
+            Route::middleware('auth:api')->group(function (): void {
                 Route::get('logout', LogoutUserController::class);
             });
         });

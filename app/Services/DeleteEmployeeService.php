@@ -6,10 +6,6 @@ use App\Models\Employee;
 
 class DeleteEmployeeService
 {
-    /**
-     * @param string $uuid
-     * @return int
-     */
     public function __invoke(string $uuid): int
     {
         return app(Employee::class)

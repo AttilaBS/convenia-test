@@ -6,11 +6,7 @@ use App\Models\Employee;
 
 class CreateEmployeeService
 {
-    /**
-     * @param array $employeeData
-     * @return Employee|null
-     */
-    public function __invoke(array $employeeData): Employee|null
+    public function __invoke(array $employeeData): ?Employee
     {
         $managerId = auth()->user()->id;
 

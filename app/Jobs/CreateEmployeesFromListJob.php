@@ -24,7 +24,6 @@ class CreateEmployeesFromListJob implements ShouldQueue
     public function __construct(private readonly array $employeesList) {}
 
     /**
-     * @return void
      * @noinspection NullPointerExceptionInspection
      */
     public function handle(): void

@@ -13,10 +13,6 @@ use Illuminate\Http\JsonResponse;
 final class CreateUserController extends Controller
 {
     /**
-     * @param CreateUserRequest $request
-     * @param CreateUserService $createUserService
-     * @return JsonResponse
-     *
      * @throws Exception
      */
     public function __invoke(
@@ -30,6 +26,7 @@ final class CreateUserController extends Controller
                 'Ocorreu um erro e não foi possível criar o usuário',
                 ['email' => $request->validated('email')]
             );
+
             return (new GenericResource(__('api.model.not_created')))->response();
         }
         /** @noinspection NullPointerExceptionInspection */

@@ -80,7 +80,7 @@ return [
                 ],
                 'error' => [
                     'message' => 'Ocorreu um erro ao inserir a lista. Tente novamente mais tarde.',
-                    'status'=> 400,
+                    'status' => 400,
                 ],
             ],
         ],

@@ -23,7 +23,7 @@ class ValidateListValues
                         'required',
                         'string',
                         'between:3,120',
-                        new NamePattern
+                        new NamePattern,
                     ],
                     'email' => [
                         'required',

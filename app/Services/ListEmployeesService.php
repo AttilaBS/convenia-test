@@ -8,9 +8,10 @@ use Illuminate\Support\Facades\Cache;
 
 class ListEmployeesService
 {
-    public function __invoke(): Collection|null
+    public function __invoke(): ?Collection
     {
         $userId = auth()->user()->id;
+
         return Cache::remember(
             "employees-listing-$userId",
             60,
@@ -18,6 +19,6 @@ class ListEmployeesService
                 return app(Employee::class)
                     ->where('manager_id', $userId)
                     ->get();
-        });
+            });
     }
 }
