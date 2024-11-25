@@ -14,10 +14,15 @@ final class DeleteEmployeeController extends Controller
         DeleteEmployeeService $deleteEmployeeService
     ): JsonResponse {
         $deleted = $deleteEmployeeService($uuid);
-        $return = $deleted
-            ? __('api.model.deleted', ['uuid' => $uuid])
-            : __('api.model.not_deleted', ['uuid' => $uuid]);
 
-        return (new GenericResource($return))->response();
+        if ($deleted) {
+            logger()->notice("O colaborador de id $uuid foi removido.");
+            $message = __('api.model.deleted', ['uuid' => $uuid]);
+        } else {
+            logger()->error("Ocorreu um erro ao remover o colaborador de id $uuid.");
+            $message = __('api.model.not_deleted', ['uuid' => $uuid]);
+        }
+
+        return (new GenericResource($message))->response();
     }
 }

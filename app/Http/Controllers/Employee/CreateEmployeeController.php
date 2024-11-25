@@ -22,6 +22,7 @@ final class CreateEmployeeController extends Controller
 
             return (new GenericResource(__('api.model.not_created')))->response();
         }
+        logger()->notice("O colaborador de id $employee->id foi criado.");
 
         return (new EmployeeResource($employee))->response();
     }

@@ -21,9 +21,11 @@ final class EditEmployeeController extends Controller
 
         if (! $updatedEmployee) {
             $message = __('api.employee.not_updated', ['uuid' => $uuid]);
+            logger()->error("Ocorreu um erro ao atualizar o colaborador de id $uuid.");
 
             return (new GenericResource($message))->response();
         }
+        logger()->notice("O colaborador de id $uuid foi atualizado.");
 
         return (new EmployeeResource($updatedEmployee))->response();
 
